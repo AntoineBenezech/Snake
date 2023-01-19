@@ -35,7 +35,7 @@ void draw_board()
 }
 
 // dessine le serpent sur le board
-void add_snake_to_board(Snake &snake, std::vector<char> &board )
+void add_snake_to_board(Snake snake)
 {
   for (const auto &e : snake.snake)
   {

@@ -18,8 +18,6 @@ void reset_board();
 // dessine le board
 void draw_board();
 
-// dessine le serpent sur le board
-void add_snake_to_board();
 
 class Snake
 {
@@ -41,12 +39,12 @@ class Snake
         else if (e == 'i')
         {
             snake.pop_back();
-            snake.push_front(snake.front()-rows);
+            snake.push_front(snake.front()-columns);
         }
         else if (e == 'k')
         {
             snake.pop_back();
-            snake.push_front(snake.front() + rows);
+            snake.push_front(snake.front() + columns);
         }
     };
     
@@ -64,13 +62,19 @@ class Snake
         }
         else if (e == 'i')
         {
-            snake.push_front(snake.front()-rows);
+            snake.push_front(snake.front()-columns);
         }
         else if (e == 'k')
         {
-            snake.push_front(snake.front() + rows);
+            snake.push_front(snake.front() + columns);
         }
     };
+    int front()
+    {
+        return snake.front();
+    }
 };
 
 
+// dessine le serpent sur le board
+void add_snake_to_board(Snake snake);
