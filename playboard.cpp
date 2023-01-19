@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <deque>
 
 // nombre de lignes et de colonne du board
 const int rows = 10;
@@ -34,10 +35,11 @@ void draw_board()
 }
 
 // dessine le serpent sur le board
-void add_snake_to_board()
+void add_snake_to_board(Snake &snake, std::vector<char> &board )
 {
-  // bien sûr il faudra changer tout ça...
-  board.at(87) = 'o';
-  board.at(88) = 'o';
-  board.at(89) = 'O';
+  for (const auto &e : snake.snake)
+  {
+    board.at(e) = 'o';
+  }
+  board.at(snake.snake.front()) = 'O';
 }
