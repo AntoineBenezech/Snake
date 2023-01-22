@@ -8,11 +8,14 @@ void play_game()
     // (on règle comme cela la vitesse du serpent)
 
     // la clé qui sera entrée au clavier
+
+    int apple = rand()%160;
     char key = 'l';
     std::deque<int> initiator {87, 86, 85};
     Snake snake(initiator);
-
-    while (true)
+    srand(time(NULL)); 
+    int a = 0;
+    while (a == 0)
     {
         // on efface tout
         backgroundClear();
@@ -22,9 +25,12 @@ void play_game()
         add_snake_to_board(snake);
         // on dessine le board
         // qui contient donc le serpent
+        add_apple_to_board();
         draw_board();
+        
 
         // on temporise un tour
+        speed(snake);
         sleepOneLap(MS);
 
         // si un caractère a été entré
@@ -53,28 +59,24 @@ void play_game()
             }
             else if (board.at(snake.snake.front() + 1) == 'o')
             {
-                backgroundClear();
-                std::cout<<"GAME OVER"<<std::endl;
-                std::cout<<"Score :"<<snake.snake.size()<<std::endl;
+                a = 1;
             }
             // avec cette clé, on veut déplacer le serpent
             // d'un coup vers la droite
         }
         else if (key == 'i')
         {
-            if (board.at(snake.snake.front() - rows) == '.')
+            if (board.at(snake.snake.front() - columns) == '.')
             {
                 snake.moving('i');
             }
-            else if (board.at(snake.snake.front() - rows) == '@')
+            else if (board.at(snake.snake.front() - columns) == '@')
             {
                 snake.eating_apple('i');
             }
-            else if (board.at(snake.snake.front() - rows) == 'o')
+            else if (board.at(snake.snake.front() - columns) == 'o')
             {
-                backgroundClear();
-                std::cout<<"GAME OVER"<<std::endl;
-                std::cout<<"Score :"<<snake.snake.size()<<std::endl;
+                a = 1;
             }
         }
         else if (key == 'j')
@@ -89,27 +91,23 @@ void play_game()
             }
             else if (board.at(snake.snake.front() - 1) == 'o')
             {
-                backgroundClear();
-                std::cout<<"GAME OVER"<<std::endl;
-                std::cout<<"Score :"<<snake.snake.size()<<std::endl;
+                a = 1;
             }
         }
 
         else if (key == 'k')
         {
-            if (board.at(snake.snake.front() + rows) == '.')
+            if (board.at(snake.snake.front() + columns) == '.')
             {
                 snake.moving('k');
             }
-            else if (board.at(snake.snake.front() + rows) == '@')
+            else if (board.at(snake.snake.front() + columns) == '@')
             {
                 snake.eating_apple('k');
             }
-            else if (board.at(snake.snake.front() + rows) == 'o')
+            else if (board.at(snake.snake.front() + columns) == 'o')
             {
-                backgroundClear();
-                std::cout<<"GAME OVER"<<std::endl;
-                std::cout<<"Score :"<<snake.snake.size()<<std::endl;
+                a = 1;
             }
         }
         else if (key == 'q') // on veut quitter la partie
@@ -120,4 +118,8 @@ void play_game()
         }
         
     }
+    backgroundClear();
+    std::cout<<"GAME OVER"<<std::endl;
+    std::cout<<"Score :"<<snake.snake.size()<<std::endl;
+
 }

@@ -5,15 +5,23 @@
 #include <vector>
 #include <cstdlib>
 #include <deque>
+#include <chrono>
+#include <random>
+
+
+std::default_random_engine re;
 
 // nombre de lignes et de colonne du board
 const int rows = 10;
 const int columns = 16;
+int apple = 2;
 
 int MS = 600; // milli-secondes (200 pour aller plus vite)
 
 // vecteur représentant le board
 std::vector<char> board = std::vector<char>(rows * columns, '.');
+//Position de la pomme
+//int apple = std::uniform_int_distribution<int> distrib{0, 10 * 16};
 
 // ré-initialise le board
 // (ici on le remplit de '.')
@@ -42,4 +50,31 @@ void add_snake_to_board(Snake snake)
     board.at(e) = 'o';
   }
   board.at(snake.snake.front()) = 'O';
+}
+
+
+void add_apple_to_board()
+{
+  if (board.at(apple) == '.')
+  {
+    board.at(apple) = '@';
+  }
+  else
+  {
+    apple = rand()%(rows * columns);
+    add_apple_to_board();
+  }
+
+};
+
+void speed(Snake snake)
+{
+  for(auto k :snake.snake)
+  {
+    MS = 700;
+    if (MS >= 100)
+    {
+      MS = MS*0.90;
+    }
+  }
 }

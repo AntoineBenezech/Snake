@@ -6,7 +6,7 @@
 // nombre de lignes et de colonne du board
 extern const int rows;
 extern const int columns;
-
+extern int apple;
 extern int MS; // milli-secondes
 
 // vecteur représentant le board
@@ -23,8 +23,11 @@ class Snake
 {
   public:
     std::deque<int> snake;
-    Snake(std::deque<int>& initiator): snake(initiator){};
+    Snake(std::deque<int>& initiator): snake(initiator){
+        srand(time(NULL));
+    };
     void moving(char e)
+    
     {
         if (e == 'l')
         {
@@ -51,6 +54,7 @@ class Snake
     
     void eating_apple(char e)
     {
+        srand(time(NULL));
         
         if (e == 'l')
         {
@@ -68,6 +72,11 @@ class Snake
         {
             snake.push_front(snake.front() + columns);
         }
+        apple = rand()%(rows*columns);
+        while (board.at(apple) == '.')
+        {
+            apple = rand()%(rows*columns);
+        }
     };
     int front()
     {
@@ -75,6 +84,10 @@ class Snake
     }
 };
 
+void add_apple_to_board();
+
 
 // dessine le serpent sur le board
 void add_snake_to_board(Snake snake);
+
+void speed(Snake snake);
